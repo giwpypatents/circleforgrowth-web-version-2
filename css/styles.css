@@ -1,0 +1,166 @@
+/* Colors and font variables from the chosen theme */
+:root {
+    --nav-bg-color: #556b2f;
+    --footer-bg-color: #8b4513; /* Footer background */
+    --link-color: #f0ede5; /* Normal link color */
+    --hover-bg-color: #6b8e23;
+    --hover-text-color: #ffffff;
+    --modal-bg-color: #ffffff;
+    --btn-color: #556b2f;
+    --btn-hover-color: #6b8e23;
+    --modal-shadow-color: rgba(0, 0, 0, 0.2);
+    --google-btn-bg: #4285f4;
+    --google-btn-hover: #357ae8;
+    --google-btn-text: white;
+
+    /* Font variables */
+    --header-font: 'Arial Black', sans-serif; /* Bold, prominent for headers */
+    --nav-font: 'Verdana', sans-serif; /* Clean font for navigation */
+    --prgh-font: 'Georgia', serif; /* More formal, classic font for paragraphs */
+    --inpt-font: 'Tahoma', sans-serif; /* Easy-to-read font for input fields */
+}
+
+/* Basic styles for navigation bar */
+.top-nav {
+    background-color: var(--nav-bg-color);
+    padding: 10px;
+    font-family: var(--nav-font);
+}
+
+.top-nav a {
+    color: var(--link-color);
+    padding: 14px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.top-nav a:hover {
+    background-color: var(--hover-bg-color);
+    color: var(--hover-text-color);
+}
+
+/* Container to display Sign In and Sign Up side by side */
+.forms-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin: 50px;
+}
+
+/* Common form styles */
+.sign-in-container, .sign-up-container {
+    width: 350px;
+    padding: 20px;
+    background-color: var(--modal-bg-color);
+    box-shadow: 0px 4px 8px var(--modal-shadow-color);
+    border-radius: 8px;
+    text-align: left;
+}
+
+.sign-in-container h2, .sign-up-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: var(--header-font); /* Use the header font */
+}
+
+.sign-in-container form, .sign-up-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    font-family: var(--prgh-font); /* Use the paragraph font for text inside forms */
+}
+
+/* Input fields styling */
+.sign-in-container input, .sign-up-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: var(--inpt-font); /* Input font */
+}
+
+/* Button styling */
+.sign-in-container button, .sign-up-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--btn-color);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.sign-in-container button:hover, .sign-up-container button:hover {
+    background-color: var(--btn-hover-color);
+}
+
+/* Text below forms */
+.form-text {
+    text-align: center;
+    margin-top: 10px;
+    font-family: var(--prgh-font); /* Use paragraph font */
+}
+
+/* Isolated clickable text (matches footer background until hovered) */
+.isolated-link {
+    color: var(--footer-bg-color); /* Same color as footer background */
+    text-decoration: none;
+}
+
+.isolated-link:hover {
+    color: var(--link-color); /* Changes to visible link color on hover */
+}
+
+/* Google Signup Button */
+.google-signup {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.google-button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--google-btn-bg);
+    color: var(--google-btn-text);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.google-button:hover {
+    background-color: var(--google-btn-hover);
+}
+
+/* Footer styling */
+footer {
+    background-color: var(--footer-bg-color);
+    color: var(--link-color);
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    font-family: var(--nav-font); /* Use navigation font for footer */
+}
+
+.footer-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-list li {
+    display: inline;
+    padding: 0 15px;
+}
+
+.footer-list a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.footer-list a:hover {
+    color: var(--hover-text-color);
+}
