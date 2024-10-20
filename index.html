@@ -3,40 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Circle Community - Sign In & Sign Up</title>
+    <title>Circle Community</title>
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
+    <!-- Typing Text Section -->
+    <div class="typing-container">
+      <h1 class="typing-text" id="typing-text"></h1>
+    </div>
+
     <!-- Top Navigation Bar -->
     <div class="top-nav">
       <a href="#">Home</a>
       <a href="#">Blog Posts</a>
       <a href="#">Contact</a>
       <a href="#">About</a>
-      <a href="#">Sign In</a>
+      <a href="#" id="sign-in-button">Sign In</a>
     </div>
 
-    <!-- Container for Both Forms -->
-    <div class="forms-container">
-      <!-- Sign In Form -->
-      <div class="sign-in-container">
+    <!-- Sign In Modal -->
+    <div id="sign-in-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
         <h2>Sign In</h2>
-        <form id="login-form" action="login.php" method="POST">
+        <form id="login-form">
           <label for="circle-id">Circle ID:</label>
           <input type="text" id="circle-id" name="circle-id" required /><br />
           <label for="password">Password:</label>
           <input type="password" id="password" name="password" required /><br />
           <button type="submit">Sign In</button>
         </form>
-        <p class="form-text">
-          Don't have an account? <a href="#">Sign Up instead</a>
+        <p>
+          Don't have an account?
+          <a href="#" id="register-link">Sign Up instead</a>
         </p>
       </div>
+    </div>
 
-      <!-- Sign Up Form -->
-      <div class="sign-up-container">
+    <!-- Sign Up Modal -->
+    <div id="register-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
         <h2>Sign Up</h2>
-        <form id="signup-form" action="signup.php" method="POST">
+        <form id="signup-form">
           <label for="name">Full Name:</label>
           <input type="text" id="name" name="name" required /><br />
           <label for="business">Business Name:</label>
@@ -47,8 +56,8 @@
           <input type="tel" id="phone" name="phone" required /><br />
           <button type="submit">Sign Up</button>
         </form>
-        <p class="form-text">
-          Already have an account? <a href="#">Sign In</a>
+        <p>
+          Already have an account? <a href="#" id="back-to-signin">Sign In</a>
         </p>
         <div class="google-signup">
           <p>or</p>
@@ -65,5 +74,8 @@
         <li><a href="http://www.giwpy.com">Learn more</a></li>
       </ul>
     </footer>
+
+    <!-- External JavaScript -->
+    <script src="js/scripts.js"></script>
   </body>
 </html>

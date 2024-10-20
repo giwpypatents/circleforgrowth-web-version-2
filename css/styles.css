@@ -1,37 +1,62 @@
-/* Colors and font variables from the chosen theme */
+/* Colors and font variables */
 :root {
-    --nav-bg-color: #556b2f;
-    --footer-bg-color: #8b4513; /* Footer background */
-    --link-color: #f0ede5; /* Normal link color */
-    --hover-bg-color: #6b8e23;
-    --hover-text-color: #ffffff;
-    --modal-bg-color: #ffffff;
-    --btn-color: #556b2f;
-    --btn-hover-color: #6b8e23;
-    --modal-shadow-color: rgba(0, 0, 0, 0.2);
-    --google-btn-bg: #4285f4;
-    --google-btn-hover: #357ae8;
-    --google-btn-text: white;
-
-    /* Font variables */
-    --header-font: 'Arial Black', sans-serif; /* Bold, prominent for headers */
-    --nav-font: 'Verdana', sans-serif; /* Clean font for navigation */
-    --prgh-font: 'Georgia', serif; /* More formal, classic font for paragraphs */
-    --inpt-font: 'Tahoma', sans-serif; /* Easy-to-read font for input fields */
+    --nav-bg-color: #556b2f; /* Original green */
+    --footer-bg-color: #8b4513; /* Original dark brown for footer */
+    --link-color: #f0ede5; /* Light beige for text links */
+    --hover-bg-color: #6b8e23; /* Lighter green for hover */
+    --hover-text-color: #ffffff; /* White for hover text */
+    --modal-bg-color: #ffffff; /* White background for modals */
+    --btn-color: #556b2f; /* Green for buttons */
+    --btn-hover-color: #6b8e23; /* Lighter green for button hover */
+    --modal-shadow-color: rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
 
-/* Basic styles for navigation bar */
+/* Typing text styling */
+.typing-container {
+    text-align: left; /* Align text to the left */
+    margin-top: 50px;
+    padding-left: 50px; /* Add left padding */
+    height: 80px; /* Fixed height for typing box to prevent nav from moving */
+    display: flex;
+    align-items: center; /* Vertically center the text */
+}
+
+.typing-text {
+    font-family: verdana, sans-serif;
+    font-size: 3em;
+    color: var(--btn-color); /* Use original green for text */
+    white-space: nowrap;
+    border-right: 3px solid var(--btn-color); /* Blinking cursor effect */
+    padding-right: 5px;
+    animation: blink-cursor 0.75s step-end infinite;
+}
+
+@keyframes blink-cursor {
+    from {
+        border-right-color: var(--btn-color);
+    }
+    to {
+        border-right-color: transparent;
+    }
+}
+
+/* Spacing for navigation bar */
 .top-nav {
     background-color: var(--nav-bg-color);
     padding: 10px;
     font-family: var(--nav-font);
+    display: flex;
+    justify-content: flex-end; /* Align navigation to the right */
+    gap: 20px; /* Add space between links */
+    margin-top: 30px; /* Add space between typing text and navigation */
 }
 
+/* Navigation link styling */
 .top-nav a {
     color: var(--link-color);
     padding: 14px;
     text-decoration: none;
-    display: inline-block;
+    text-align: center;
 }
 
 .top-nav a:hover {
@@ -39,50 +64,54 @@
     color: var(--hover-text-color);
 }
 
-/* Container to display Sign In and Sign Up side by side */
-.forms-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    margin: 50px;
+/* Modal styling stays the same */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    z-index: 1000;
 }
 
-/* Common form styles */
-.sign-in-container, .sign-up-container {
-    width: 350px;
-    padding: 20px;
+.modal-content {
     background-color: var(--modal-bg-color);
-    box-shadow: 0px 4px 8px var(--modal-shadow-color);
+    margin: 10% auto;
+    padding: 20px;
     border-radius: 8px;
-    text-align: left;
+    width: 350px;
+    box-shadow: 0px 4px 8px var(--modal-shadow-color);
+    position: relative;
 }
 
-.sign-in-container h2, .sign-up-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-family: var(--header-font); /* Use the header font */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
 }
 
-.sign-in-container form, .sign-up-container form {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    font-family: var(--prgh-font); /* Use the paragraph font for text inside forms */
+.close:hover {
+    color: #555;
 }
 
-/* Input fields styling */
-.sign-in-container input, .sign-up-container input {
+/* Input fields */
+.modal-content input {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    font-family: var(--inpt-font); /* Input font */
+    font-family: var(--inpt-font);
 }
 
-/* Button styling */
-.sign-in-container button, .sign-up-container button {
+/* Button styles */
+.modal-content button {
     width: 100%;
     padding: 12px;
     background-color: var(--btn-color);
@@ -92,46 +121,8 @@
     cursor: pointer;
 }
 
-.sign-in-container button:hover, .sign-up-container button:hover {
+.modal-content button:hover {
     background-color: var(--btn-hover-color);
-}
-
-/* Text below forms */
-.form-text {
-    text-align: center;
-    margin-top: 10px;
-    font-family: var(--prgh-font); /* Use paragraph font */
-}
-
-/* Isolated clickable text (matches footer background until hovered) */
-.isolated-link {
-    color: var(--footer-bg-color); /* Same color as footer background */
-    text-decoration: none;
-}
-
-.isolated-link:hover {
-    color: var(--link-color); /* Changes to visible link color on hover */
-}
-
-/* Google Signup Button */
-.google-signup {
-    text-align: center;
-    margin-top: 15px;
-}
-
-.google-button {
-    width: 100%;
-    padding: 10px;
-    background-color: var(--google-btn-bg);
-    color: var(--google-btn-text);
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.google-button:hover {
-    background-color: var(--google-btn-hover);
 }
 
 /* Footer styling */
@@ -143,7 +134,7 @@ footer {
     position: absolute;
     width: 100%;
     bottom: 0;
-    font-family: var(--nav-font); /* Use navigation font for footer */
+    font-family: var(--nav-font);
 }
 
 .footer-list {
