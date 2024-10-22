@@ -48,11 +48,44 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeRegister = registerModal.querySelector('.close');
     const backToSignInLink = document.getElementById('back-to-signin');
 
+    // Profile Modal
+    const profileModal = document.getElementById('profile-modal');
+    const closeProfile = profileModal.querySelector('.close');
+    const profileName = document.getElementById('profile-name');
+    const profileBusiness = document.getElementById('profile-business');
+    const profileCircleId = document.getElementById('profile-circle-id');
+
+    // Check login state on page load
+    function checkLoginState() {
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            signInButton.textContent = 'Profile'; // Change button to Profile
+            signInButton.href = "#"; // Prevent link change
+        } else {
+            signInButton.textContent = 'Sign In'; // Reset button to Sign In
+            signInButton.href = "#"; // Reset link
+        }
+    }
+
+    // Initial check for login state
+    checkLoginState();
+
     // Show the Sign In modal
     signInButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        signInModal.style.display = 'block';
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            showProfileModal();
+        } else {
+            e.preventDefault();
+            signInModal.style.display = 'block';
+        }
     });
+
+    // Function to show profile modal
+    function showProfileModal() {
+        profileName.textContent = localStorage.getItem('userName'); // Assuming userName is stored in localStorage
+        profileBusiness.textContent = localStorage.getItem('userBusiness'); // Get business name
+        profileCircleId.textContent = localStorage.getItem('userCircleId'); // Get Circle ID
+        profileModal.style.display = 'block';
+    }
 
     // Close the Sign In modal
     closeSignIn.addEventListener('click', function() {
@@ -62,8 +95,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Open the Register modal from Sign In
     registerLink.addEventListener('click', function(e) {
         e.preventDefault();
-        signInModal.style.display = 'none';
-        registerModal.style.display = 'block';
+        signInModal.style.display = 'none'; // Close Sign In modal
+        registerModal.style.display = 'block'; // Open Register modal
     });
 
     // Close the Register modal
@@ -74,8 +107,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Go back to Sign In from Register
     backToSignInLink.addEventListener('click', function(e) {
         e.preventDefault();
-        registerModal.style.display = 'none';
-        signInModal.style.display = 'block';
+        registerModal.style.display = 'none'; // Close Register modal
+        signInModal.style.display = 'block'; // Open Sign In modal
     });
 
     // Close modals when clicking outside of modal content
@@ -84,22 +117,72 @@ document.addEventListener('DOMContentLoaded', function() {
             signInModal.style.display = 'none';
         } else if (e.target === registerModal) {
             registerModal.style.display = 'none';
+        } else if (e.target === profileModal) {
+            profileModal.style.display = 'none';
         }
     });
 
-    // Front-end form validation for registration
+    // Handle form submissions
     document.getElementById('signup-form').addEventListener('submit', function(e) {
-        const fullName = document.getElementById('name').value;
-        const businessName = document.getElementById('business').value;
-        const email = document.getElementById('email').value;
-        const phoneNumber = document.getElementById('phone').value;
-        const password = document.getElementById('password').value;
+        e.preventDefault(); // Prevent actual form submission
+        const formData = new FormData(this);
 
-        if (!fullName || !email || !phoneNumber || !password) {
-            e.preventDefault(); // Stop form submission
-            alert('Please fill out all required fields (Full Name, Email, Phone Number, and Password).');
-        }
+        fetch('signup.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data); // Alert registration success or error
+            if (data.includes("Registration successful")) {
+                // Optionally redirect or close modal
+                registerModal.style.display = 'none';
+                signInModal.style.display = 'block'; // Show Sign In modal after registration
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
 
-        // You can add more specific validation if needed (e.g., email format, phone format, etc.)
+    // Handle login form submission
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent actual form submission
+        const formData = new FormData(this);
+
+        fetch('login.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                localStorage.setItem('isLoggedIn', 'true'); // Set login status
+                localStorage.setItem('userName', data.user.full_name); // Store user name
+                localStorage.setItem('userBusiness', data.user.business_name); // Store business name
+                localStorage.setItem('userCircleId', data.user.circle_id); // Store Circle ID
+                checkLoginState(); // Update the navigation bar
+                alert(data.message); // Alert login success
+                signInModal.style.display = 'none'; // Close Sign In modal
+                window.location.href = "index.html"; // Redirect to home
+            } else {
+                alert(data.message); // Alert error message
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    // Close the Profile modal
+    closeProfile.addEventListener('click', function() {
+        profileModal.style.display = 'none';
+    });
+
+    // Handle sign out
+    document.getElementById('sign-out-button').addEventListener('click', function() {
+        localStorage.removeItem('isLoggedIn'); // Clear login status
+        localStorage.removeItem('userName'); // Clear user name if stored
+        localStorage.removeItem('userBusiness'); // Clear business name if stored
+        localStorage.removeItem('userCircleId'); // Clear Circle ID if stored
+        checkLoginState(); // Update the navigation bar
+        alert("You have successfully signed out.");
+        profileModal.style.display = 'none'; // Close the Profile modal
     });
 });

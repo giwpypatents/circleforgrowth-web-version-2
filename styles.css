@@ -11,63 +11,82 @@
     --modal-shadow-color: rgba(0, 0, 0, 0.2); /* Subtle shadow */
 }
 
+/* General body layout */
+body {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    min-height: 100vh; /* Full height of the viewport */
+    margin: 0; /* Remove default margin */
+}
+
+/* Top navigation bar */
+.top-nav {
+    background-color: var(--nav-bg-color);
+    display: flex;
+    align-items: center; /* Vertically center items */
+    padding: 10px;
+}
+
+/* Logo styling */
+.logo {
+    height: 50px; /* Adjust as necessary */
+    margin-right: 20px; /* Space between logo and typing text */
+}
+
 /* Typing text styling */
 .typing-container {
-    text-align: left; /* Align text to the left */
-    margin-top: 50px;
-    padding-left: 50px; /* Add left padding */
-    height: 80px; /* Fixed height for typing box to prevent nav from moving */
-    display: flex;
-    align-items: center; /* Vertically center the text */
+    flex-grow: 1; /* Allow typing text to take available space */
+    display: flex; /* Use flex to align items */
+    align-items: center; /* Center vertically */
+    min-width: 200px; /* Set a minimum width to keep space fixed */
+    height: 50px; /* Set a fixed height to prevent blinking */
+    overflow: hidden; /* Prevent overflow from affecting layout */
 }
 
 .typing-text {
     font-family: verdana, sans-serif;
-    font-size: 3em;
-    color: var(--btn-color); /* Use original green for text */
-    white-space: nowrap;
+    font-size: 1.5em; /* Adjust size for better appearance */
+    color: var(--link-color); /* Use link color */
+    white-space: nowrap; /* Prevent wrapping */
     border-right: 3px solid var(--btn-color); /* Blinking cursor effect */
     padding-right: 5px;
     animation: blink-cursor 0.75s step-end infinite;
 }
 
+/* Typing cursor blink effect */
 @keyframes blink-cursor {
-    from {
+    0% {
         border-right-color: var(--btn-color);
     }
-    to {
+    50% {
         border-right-color: transparent;
     }
-}
-
-/* Spacing for navigation bar */
-.top-nav {
-    background-color: var(--nav-bg-color);
-    padding: 10px;
-    font-family: var(--nav-font);
-    display: flex;
-    justify-content: flex-end; /* Align navigation to the right */
-    gap: 20px; /* Add space between links */
-    margin-top: 30px; /* Add space between typing text and navigation */
+    100% {
+        border-right-color: var(--btn-color);
+    }
 }
 
 /* Navigation link styling */
-.top-nav a {
-    color: var(--link-color);
-    padding: 14px;
-    text-decoration: none;
-    text-align: center;
+.nav-links {
+    display: flex; /* Make links flex items */
+    gap: 20px; /* Space between links */
 }
 
-.top-nav a:hover {
+.nav-links a {
+    color: var(--link-color);
+    text-decoration: none;
+    padding: 14px;
+}
+
+.nav-links a:hover {
     background-color: var(--hover-bg-color);
     color: var(--hover-text-color);
 }
 
-/* Modal styling stays the same */
+/* Modal styling */
 .modal {
     display: none; /* Hidden by default */
-    position: fixed;
+    position: fixed; /* Fixed positioning to cover the viewport */
     top: 0;
     left: 0;
     width: 100%;
@@ -78,7 +97,7 @@
 
 .modal-content {
     background-color: var(--modal-bg-color);
-    margin: 10% auto;
+    margin: 10% auto; /* Center the modal */
     padding: 20px;
     border-radius: 8px;
     width: 350px;
@@ -99,7 +118,7 @@
     color: #555;
 }
 
-/* Input fields */
+/* Input fields in modals */
 .modal-content input {
     width: 100%;
     padding: 12px;
@@ -107,10 +126,10 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    font-family: var(--inpt-font);
+    font-family: sans-serif; /* Specify font family */
 }
 
-/* Button styles */
+/* Button styles for all modals */
 .modal-content button {
     width: 100%;
     padding: 12px;
@@ -125,16 +144,30 @@
     background-color: var(--btn-hover-color);
 }
 
+/* Profile Modal specific styling */
+#profile-modal .modal-content {
+    background-color: var(--modal-bg-color);
+}
+
+#profile-modal p {
+    margin: 10px 0;
+    font-size: 1.1em; /* Slightly larger font size for better readability */
+}
+
+hr {
+    border: 0; /* Remove default border */
+    border-top: 1px solid #ccc; /* Light gray line */
+    margin: 10px 0; /* Space above and below the line */
+}
+
 /* Footer styling */
 footer {
     background-color: var(--footer-bg-color);
     color: var(--link-color);
     text-align: center;
     padding: 10px 0;
-    position: absolute;
     width: 100%;
-    bottom: 0;
-    font-family: var(--nav-font);
+    margin-top: auto; /* Ensure footer is pushed down */
 }
 
 .footer-list {
@@ -154,4 +187,32 @@ footer {
 
 .footer-list a:hover {
     color: var(--hover-text-color);
+}
+
+/* Notification styling */
+.notification {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4caf50; /* Green */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.notification.visible {
+    display: block;
+    animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
